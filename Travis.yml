@@ -1,11 +1,13 @@
 language: python
-language: python
 python:
-  - "2.7"
-  - "nightly"  # nightly build
-# command to install dependencies
+  - 2.7
+  - 3.5
+  - 3.6
+before_install:
+  - python --version
+  - pip install -U pip
+  - pip install -U pytest
+  - pip install codecov
 install:
-  - pip install -r requirements.txt
-# command to run tests
-script:
-  - FullTest.py
+  - pip install selenium
+script: python FullTest.py
