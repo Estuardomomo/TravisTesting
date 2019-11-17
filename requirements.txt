@@ -1,8 +1,2 @@
- unittest
- time
- uuid
- os
- webdriver
- Keys
- Options
- DesiredCapabilities
+ unittest2
+ selenium
