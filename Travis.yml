@@ -3,11 +3,7 @@ python:
   - 2.7
   - 3.5
   - 3.6
-before_install:
-  - python --version
-  - pip install -U pip
-  - pip install -U pytest
-  - pip install codecov
 install:
   - pip install selenium
+  - pip install unittest2
 script: python FullTest.py
