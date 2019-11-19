@@ -6,4 +6,6 @@ python:
 install:
   - pip install selenium
   - pip install unittest2
+  - pip install uuid
+  - pip install os
 script: python FullTest.py
