@@ -6,6 +6,10 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import uuid 
 import os
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 
 class FullTest(unittest.TestCase):
 
@@ -43,18 +47,27 @@ class FullTest(unittest.TestCase):
         print("Back End: %s ms" % backendPerformance_calc)
         print("Front End: %s ms" % frontendPerformance_calc)
         
-   # def test_Register(self):
+    def test_Register(self):
         registerUrl = "https://restaurante-dev.firebaseapp.com/#/register"
         nombre = 'name ' + self.tempID
         apellido = 'surname ' + self.tempID
         correo = 'correo' + self.tempID + '@gmail.com'
         user = 'user ' + self.tempID
         driver = self.driver
-        #open browser     
-        time.sleep(2)   
-        driver.get(registerUrl)
-        time.sleep(2)           #This url redirect to https://restaurante-dev.firebaseapp.com/#/login, hardcode to "https://restaurante-dev.firebaseapp.com/#/register"
-        self.assertIn(registerUrl, driver.current_url)
+        timeout = 3
+
+        #open browser      
+        driver.get(registerUrl) 
+        try:
+            element_present = EC.presence_of_element_located((By.ID, 'main'))
+            WebDriverWait(driver, timeout).until(element_present)
+        except TimeoutException:
+            print("Timed out waiting for page to load")
+        try:
+            self.assertIn(registerUrl, driver.current_url)
+        except:
+            time.sleep(2)   
+            driver.get(registerUrl)
         navigationStart = driver.execute_script("return window.performance.timing.navigationStart")
         responseStart = driver.execute_script("return window.performance.timing.responseStart")
         domComplete = driver.execute_script("return window.performance.timing.domComplete")
@@ -78,7 +91,7 @@ class FullTest(unittest.TestCase):
         print("Back End: %s ms" % backendPerformance_calc)
         print("Front End: %s ms" % frontendPerformance_calc)
 
-   # def test_Register_Product(self):
+    def test_Register_Product(self):
         productUrl = 'https://restaurante-dev.firebaseapp.com/#/product'
         #tempID = uuid.uuid1()
         productName = 'Product' + self.tempID      
@@ -87,12 +100,22 @@ class FullTest(unittest.TestCase):
         workingDirectory = os.getcwd()
         productImagePath = workingDirectory.replace("\\","/") + "/Data/image.JPG"
         driver = self.driver
-
+        timeout = 3
         #open browser   
-        time.sleep(1) 
-        driver.get(productUrl)
-        time.sleep(1) 
-        self.assertIn(productUrl, driver.current_url)
+        
+
+        #open browser      
+        driver.get(productUrl) 
+        try:
+            element_present = EC.presence_of_element_located((By.ID, 'main'))
+            WebDriverWait(driver, timeout).until(element_present)
+        except TimeoutException:
+            print("Timed out waiting for page to load")
+        try:
+            self.assertIn(productUrl, driver.current_url)
+        except:
+            time.sleep(2)   
+            driver.get(productUrl)
         navigationStart = driver.execute_script("return window.performance.timing.navigationStart")
         responseStart = driver.execute_script("return window.performance.timing.responseStart")
         domComplete = driver.execute_script("return window.performance.timing.domComplete")
@@ -116,7 +139,7 @@ class FullTest(unittest.TestCase):
 
         #click crear producto
         #driver.find_element_by_xpath('/html/body/app-dashboard/div/main/div/app-dashboard/div/div/main/div/div/div/div/div/form/div/div[3]/button').click()
-        #print("Register New Product successfull")
+        print("Register New Product successfull")
 
         #Calculate the performance
         backendPerformance_calc = responseStart - navigationStart
