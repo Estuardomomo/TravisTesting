@@ -15,7 +15,8 @@ class FullTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls): 
-        cls.driver = webdriver.Chrome(executable_path='./Driver/chromedriver') 
+        cls.driver = webdriver.Chrome(executable_path='./Driver/chromedriver')
+        os.environ["webdriver.chrome.driver"] = cls.driver 
         cls.username = 'chang'
         cls.password = 'password'
         cls.driver.maximize_window()
