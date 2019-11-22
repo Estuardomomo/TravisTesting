@@ -2,7 +2,7 @@ import unittest
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import uuid 
 import os
@@ -15,7 +15,7 @@ class FullTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls): 
-        cls.driver = webdriver.Chrome(executable_path='./Driver/chromedriver')
+        cls.driver = webdriver.Firefox(executable_path='./Driver/geckodriver')
         cls.username = 'chang'
         cls.password = 'password'
         cls.driver.maximize_window()
@@ -150,8 +150,6 @@ class FullTest(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         cls.driver.close()
-        chrome_options = Options()
-        chrome_options.add_experimental_option("detach", True)
 
 if __name__ == "__main__":
     unittest.main()
