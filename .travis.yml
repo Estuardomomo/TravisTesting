@@ -1,5 +1,5 @@
 language: python
-os: windows
+os: linux
 python:
   - 2.7
   - 3.6
