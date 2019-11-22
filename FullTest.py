@@ -16,6 +16,8 @@ class FullTest(unittest.TestCase):
         cls.password = 'password'
         cls.driver.maximize_window()
         cls.tempID = str(uuid.uuid1())
+        cls.driver.session_id
+ 
     def test_Login(self):
         driver = self.driver
         loginUrl = 'https://restaurante-dev.firebaseapp.com/#/login' 
@@ -34,26 +36,24 @@ class FullTest(unittest.TestCase):
         #click login button 
         driver.find_element_by_xpath('/html/body/app-dashboard/div/main/div/div/div/div/div/div/form/div[3]/div/button').click()
         print("Login successfull")
+
         #Calculate the performance
         backendPerformance_calc = responseStart - navigationStart
         frontendPerformance_calc = domComplete - responseStart
         print("Back End: %s ms" % backendPerformance_calc)
         print("Front End: %s ms" % frontendPerformance_calc)
         
-    def test_Register(self):
+   # def test_Register(self):
         registerUrl = "https://restaurante-dev.firebaseapp.com/#/register"
         nombre = 'name ' + self.tempID
         apellido = 'surname ' + self.tempID
         correo = 'correo' + self.tempID + '@gmail.com'
         user = 'user ' + self.tempID
         driver = self.driver
-
-        #open browser       
+        #open browser     
+        time.sleep(2)   
         driver.get(registerUrl)
-        time.sleep(1)           #This url redirect to https://restaurante-dev.firebaseapp.com/#/login, hardcode to "https://restaurante-dev.firebaseapp.com/#/register"
-        driver.get(registerUrl) # ""
-        time.sleep(1)           # ""
-        driver.get(registerUrl) # ""
+        time.sleep(2)           #This url redirect to https://restaurante-dev.firebaseapp.com/#/login, hardcode to "https://restaurante-dev.firebaseapp.com/#/register"
         self.assertIn(registerUrl, driver.current_url)
         navigationStart = driver.execute_script("return window.performance.timing.navigationStart")
         responseStart = driver.execute_script("return window.performance.timing.responseStart")
@@ -69,7 +69,7 @@ class FullTest(unittest.TestCase):
         driver.find_element_by_xpath('/html/body/app-dashboard/div/main/div/app-dashboard/div/div/main/div/div/div/div/div/form/div[6]/input').send_keys(self.password) 
 
         #click create account 
-        driver.find_element_by_xpath('/html/body/app-dashboard/div/main/div/app-dashboard/div/div/main/div/div/div/div/div/form/div[7]/button').click()
+        #driver.find_element_by_xpath('/html/body/app-dashboard/div/main/div/app-dashboard/div/div/main/div/div/div/div/div/form/div[7]/button').click()
 
         print("Register User successfull")
         #Calculate the performance
@@ -78,7 +78,7 @@ class FullTest(unittest.TestCase):
         print("Back End: %s ms" % backendPerformance_calc)
         print("Front End: %s ms" % frontendPerformance_calc)
 
-    def test_Register_Product(self):
+   # def test_Register_Product(self):
         productUrl = 'https://restaurante-dev.firebaseapp.com/#/product'
         #tempID = uuid.uuid1()
         productName = 'Product' + self.tempID      
@@ -89,7 +89,9 @@ class FullTest(unittest.TestCase):
         driver = self.driver
 
         #open browser   
+        time.sleep(1) 
         driver.get(productUrl)
+        time.sleep(1) 
         self.assertIn(productUrl, driver.current_url)
         navigationStart = driver.execute_script("return window.performance.timing.navigationStart")
         responseStart = driver.execute_script("return window.performance.timing.responseStart")
@@ -113,8 +115,8 @@ class FullTest(unittest.TestCase):
         element.send_keys(productImagePath)
 
         #click crear producto
-        driver.find_element_by_xpath('/html/body/app-dashboard/div/main/div/app-dashboard/div/div/main/div/div/div/div/div/form/div/div[3]/button').click()
-        print("Register New Product successfull")
+        #driver.find_element_by_xpath('/html/body/app-dashboard/div/main/div/app-dashboard/div/div/main/div/div/div/div/div/form/div/div[3]/button').click()
+        #print("Register New Product successfull")
 
         #Calculate the performance
         backendPerformance_calc = responseStart - navigationStart
