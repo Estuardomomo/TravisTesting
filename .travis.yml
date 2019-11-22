@@ -1,13 +1,10 @@
-os:
-  - linux
-
-language: c
-
-cache:
-  directories:
-    - "$HOME/.nimble"
-    - "$HOME/.choosenim"
-
+language: python
+os: linux
+python:
+  - 2.7
+  - 3.6
+branches:
+  - travis
 addons:
   firefox: "60.0.1"
 
@@ -18,13 +15,7 @@ before_install:
   - export PATH=$PATH:$PWD/geckodriver
 
 install:
-  - |
-      curl https://nim-lang.org/choosenim/init.sh -sSf > init.sh
-      sh init.sh -y
-
-before_script:
-  - export PATH=$HOME/.nimble/bin:$PATH
-
+  - pip install -r requirements.txt
 script:
-  - export MOZ_HEADLESS=1
-  - nimble -y test
+ - export MOZ_HEADLESS=1
+ - python FullTest.py
