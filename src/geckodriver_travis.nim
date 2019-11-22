@@ -9,4 +9,3 @@ routes:
   get "/":
     resp h1(id="hello", "Hello World!")
 
-runForever()
